@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<title>projectOs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url("/public/forestbridge.jpg");
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 30%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+  
+}
+
+.panel {
+  padding: 18px;
+  display: none;
+  background-color: #eee;
+  overflow: hidden;
+  width: 30%;
+	color: #000;
+}
+</style>
+<body>
+
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+<div class="w3-display-topleft w3-padding-large w3-xlarge">3PTF</div>
+  <div class="w3-display-middle">
+    <p align="center"><img src="/public/3.png" width="400" height="346"></p>
+    <p class="w3-large w3-center"><div data-ng-app="" data-ng-init="">
+    <input class="w3-input w3-border" type="number" placeholder="ฐาน" id="base" required ><br>
+		<input class="w3-input w3-border" type="number" placeholder="สูง" id="height" required><br>
+    
+    <div align="center">
+      <button class="accordion">หาพื้นที่</button>
+      <div class="panel" align="center">
+        <span id="result"></span>
+      </div>
+    </div>
+	</p>
+  </div>
+</div>
+  
+  
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+  $("button").click(function(){
+    const base = $("#base").val()
+    const height = $("#height").val()
+
+    $.ajax({
+      url: "http://project-os-3ptf.eastasia.azurecontainer.io/triangle/" + base + "/" + height, 
+      success: function(data){
+        $("#result").html(data.result);
+      }
+    });
+  });
+});
+
+var acc = document.getElementsByClassName("accordion");
+for (var i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    panel.style.display = "block";
+  });
+}
+</script>
+</html>
